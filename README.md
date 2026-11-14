@@ -1,4 +1,4 @@
-# 📊 Scrapping App & Indonesian Sentiment Analysis Platform (Pro Edition)
+# 📊 Scrapping App & Indonesian Sentiment Analysis Platform
 
 Sistem pemantauan reputasi, ekstraksi postingan & komentar Instagram, serta analisis sentimen opini publik berbasis **Natural Language Processing (NLP) Bahasa Indonesia** dan **Arsitektur Microservices Terdistribusi**.
 
