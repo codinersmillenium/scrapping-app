@@ -2,8 +2,6 @@
 
 Sistem pemantauan reputasi, ekstraksi postingan & komentar Instagram, serta analisis sentimen opini publik berbasis **Natural Language Processing (NLP) Bahasa Indonesia** dan **Arsitektur Microservices Terdistribusi**.
 
-> **Pro / Protected Edition**: Edisi ini dilengkapi proteksi kode sumber (*source code obfuscation*) menggunakan PyArmor dan stripped native machine binaries, serta mekanisme aktivasi lisensi (*Cryptographic License Verification*).
-
 ---
 
 ## 🌟 Fitur Utama
