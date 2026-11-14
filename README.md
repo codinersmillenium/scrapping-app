@@ -1,8 +1,5 @@
-# 📊 Scrapping App & Indonesian Sentiment Analysis Platform (Pro Edition)
-
+# 📊 Scrapping App & Indonesian Sentiment Analysis Platform
 Sistem pemantauan reputasi, ekstraksi postingan & komentar Instagram, serta analisis sentimen opini publik berbasis **Natural Language Processing (NLP) Bahasa Indonesia** dan **Arsitektur Microservices Terdistribusi**.
-
-> **Pro / Protected Edition**: Edisi ini dilengkapi proteksi kode sumber (*source code obfuscation*) menggunakan PyArmor dan stripped native machine binaries, serta mekanisme aktivasi lisensi (*Cryptographic License Verification*).
 
 ---
 
@@ -71,6 +68,7 @@ Seluruh layanan (Postgres, Redis, Go API, Python Worker, dan Nuxt Web) akan otom
 Buka web browser dan akses URL berikut:
 - 🌐 **Dashboard Analisis Sentimen**: [http://localhost:3002](http://localhost:3002)
 - 🔌 **REST API Backend**: [http://localhost:8084/api/v1](http://localhost:8084/api/v1)
+- **Prototype MVP Production**: [https://scrapping-svm.vercel.app/]
 
 ---
 
