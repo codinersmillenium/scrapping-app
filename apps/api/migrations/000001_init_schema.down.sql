@@ -1,0 +1,9 @@
+DROP TABLE IF EXISTS analysis_jobs;
+DROP TABLE IF EXISTS scraping_jobs;
+DROP TABLE IF EXISTS sentiment_results;
+DROP TABLE IF EXISTS social_comments;
+DROP TABLE IF EXISTS ml_models;
+DROP TABLE IF EXISTS post_image_analyses;
+DROP TABLE IF EXISTS post_images;
+DROP TABLE IF EXISTS social_posts;
+DROP TABLE IF EXISTS social_accounts;

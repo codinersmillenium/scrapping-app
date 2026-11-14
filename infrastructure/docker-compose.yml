@@ -1,0 +1,89 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: scrapping_postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-scrapping_db}
+    ports:
+      - "5435:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d scrapping_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: scrapping_redis
+    ports:
+      - "6380:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: ..
+      dockerfile: infrastructure/docker/Dockerfile.api
+    container_name: scrapping_api
+    environment:
+      PORT: 8084
+      DATABASE_URL: postgres://postgres:postgres@postgres:5432/scrapping_db?sslmode=disable
+      REDIS_ADDR: redis:6379
+      INTERNAL_API_SECRET: ${INTERNAL_API_SECRET:-scrapping-app-internal-secret-change-me}
+      ALLOWED_ORIGINS: "*"
+      STORAGE_PATH: /app/storage
+    ports:
+      - "8084:8084"
+    volumes:
+      - storage_data:/app/storage
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  worker:
+    build:
+      context: ..
+      dockerfile: infrastructure/docker/Dockerfile.worker
+    container_name: scrapping_worker
+    environment:
+      REDIS_ADDR: redis:6379
+      INTERNAL_API_URL: http://api:8084
+      INTERNAL_API_SECRET: ${INTERNAL_API_SECRET:-scrapping-app-internal-secret-change-me}
+      STORAGE_PATH: /app/storage
+    volumes:
+      - storage_data:/app/storage
+    depends_on:
+      api:
+        condition: service_started
+      redis:
+        condition: service_healthy
+
+  web:
+    build:
+      context: ..
+      dockerfile: infrastructure/docker/Dockerfile.web
+    container_name: scrapping_web
+    environment:
+      NUXT_PUBLIC_API_BASE: http://localhost:8084/api/v1
+      HOST: "0.0.0.0"
+      PORT: 3002
+    ports:
+      - "3002:3002"
+    depends_on:
+      - api
+
+volumes:
+  postgres_data:
+  redis_data:
+  storage_data:
